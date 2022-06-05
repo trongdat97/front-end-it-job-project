@@ -1,0 +1,26 @@
+export const message = {
+  LOGIN_SUCCESS: 'Login successfully',
+  DELETE_USER_SUCCESS: 'Delete user successfully',
+  ACCEPT_USER_SUCCESS: 'Accept user successfully',
+  RESTORE_USER_SUCCESS: 'Restore user successfully',
+  ADD_TAG_SUCCESS: 'Add tag successfully',
+  EDIT_TAG_SUCCESS: 'Edit tag successfully',
+  DELETE_TAG_SUCCESS: 'Delete tag successfully',
+  CONFIRM_DELETE_USER_MESSAGE: 'Do you really want to delete this user?',
+  CONFIRM_DELETE_JOB_MESSAGE: 'Do you really want to delete this job?',
+  CONFIRM_DELETE_TAG_MESSAGE: 'Do you really want to delete this tag?',
+  CONFIRM_ACCEPT_USER: 'Do you really want to accept this user?',
+  CONFIRM_ACCEPT_JOB: 'Do you really want to accept this job?',
+  ACCEPT_JOB_SUCCESS: 'Accept job successfully',
+  DELETE_JOB_SUCCESS: 'Delete job successfully',
+  RESTORE_JOB_SUCCESS: 'Restore job successfully',
+  CONFIRM_RESTORE_USER: 'Do you really want to restore this user?',
+  CONFIRM_RESTORE_JOB: 'Do you really want to restore this job?',
+  CONFIRM_DELETE_PERMANENTLY_USER_MESSAGE:
+    'Do you really want to delete permanently this user?',
+  CONFIRM_DELETE_PERMANENTLY_JOB_MESSAGE:
+    'Do you really want to delete permanently this job?',
+  ADD_JOB_SUCCESS: 'Add job successfully',
+  EDIT_JOB_SUCCESS: 'Edit job successfully',
+  CHANGE_PHONE_SUCCESS: 'Change phone successfully',
+}
