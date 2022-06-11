@@ -17,6 +17,7 @@ import UserSignup from 'features/Auth/components/AuthUser/UserSignup'
 import NavBar from 'features/User/components/NavBar/NavBar'
 import ContributorScreen from 'features/User/screens/ContributorScreen'
 import PermissionScreen from 'features/Admin/screens/PermissionScreen'
+import GuestScreen from 'features/Guest/screens/GuestScreen'
 function App() {
   return (
     <div>
@@ -42,6 +43,7 @@ function App() {
           exact
           component={PermissionScreen}
         />
+
         <PrivateRoute path="/admin/jobs/list" exact component={ListJob} />
         <PrivateRoute path="/admin/jobs/request" exact component={JobRequest} />
         <PrivateRoute path="/admin/jobs/deleted" exact component={DeletedJob} />
@@ -49,6 +51,7 @@ function App() {
         <Route path="/signup" exact component={UserSignup} />
         <Route path="/" exact component={NavBar} />
         <PrivateRouteUser path="/home" exact component={ContributorScreen} />
+        <PrivateRouteUser path="/guest/home" exact component={GuestScreen} />
       </Switch>
     </div>
   )

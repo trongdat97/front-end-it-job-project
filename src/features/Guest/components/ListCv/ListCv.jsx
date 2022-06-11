@@ -41,8 +41,8 @@ import {
   getUserById,
   searchJob,
 } from 'features/Admin/adminSlice'
-import JobInfo from '../components/JobInfo'
-import { showInfo } from '../components/jobInfoSlice'
+import JobInfo from '../../../Admin/components/JobInfo'
+import { showInfo } from '../../../Admin/components/jobInfoSlice'
 import ConfirmDialog from 'components/ConfirmDialog/ConfirmDialog'
 import { showDialog } from 'components/ConfirmDialog/dialogSlice'
 import { SNACK_BAR_TYPE } from 'constants/snackbarType'
@@ -179,9 +179,7 @@ function ListJob(props) {
     <Container
       className={classes.root}
       style={{
-        marginLeft: isOpenDrawer ? 256 : 0,
-        maxWidth: isOpenDrawer ? 1260 : 1800,
-        marginTop: 96,
+        marginTop: 30,
       }}
     >
       <JobInfo />
@@ -204,24 +202,9 @@ function ListJob(props) {
         <Grid>
           <Typography component="div">
             <Box fontSize={24} fontWeight={700} style={{ color: '#5e5873' }}>
-              List Jobs
+              List CVs
             </Box>
           </Typography>
-          <Grid
-            container
-            justifyContent="flex-end"
-            style={{ marginBottom: 38 }}
-          >
-            <SearchBox
-              item={{
-                type: 'job',
-                placeholder: "Search name, user's email",
-                width: 360,
-                height: 47,
-              }}
-              icon={<MdWorkOutline fontSize={20} />}
-            />
-          </Grid>
           <Paper
             sx={{ width: '100%', overflow: 'hidden' }}
             style={{
@@ -310,7 +293,7 @@ function ListJob(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(4),
+    // padding: theme.spacing(4),
   },
 }))
 

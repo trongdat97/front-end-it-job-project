@@ -20,7 +20,7 @@ const addTag = '/jobs/tags'
 
 const getOneCategory = '/categories/getone'
 
-const getAllJobs = '/jobs'
+const getAllJobs = '/jobs/jobs'
 
 const getJobRequest = '/jobs/inactive/all'
 

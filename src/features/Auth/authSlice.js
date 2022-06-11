@@ -10,7 +10,11 @@ export const adminLogin = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await adminApi.login(payload)
-      if (response.data.role === 'ADMIN') {
+      const role = response.data.roles.map((item) => {
+        return item.name
+      })
+      console.log(role[0])
+      if (role[0] === 'ROLE_ADMIN') {
         if (payload.remember) {
           localStorage.setItem(storageAdmin.TOKEN, response.data.token)
         } else {
@@ -114,7 +118,7 @@ const authSlice = createSlice({
     },
     [adminLogin.rejected]: (state, { payload }) => {
       state.status = 'adminLogin.rejected'
-      state.errorMessage = payload.message
+      // state.errorMessage = payload.message
     },
     [getProfile.pending]: (state) => {
       state.status = 'getProfile.pending'

@@ -56,7 +56,7 @@ function LoginForm() {
   const handleCheckBoxChange = () => setRemember(!remember)
 
   const handleSubmit = () => {
-    dispatch(adminLogin({ email, password, remember }))
+    dispatch(adminLogin({ username: email, password, remember }))
   }
   useEffect(() => {
     if (isAuth) history.push('/admin/dashboard')
@@ -143,11 +143,11 @@ function LoginForm() {
                   name="email"
                   inputProps={{ style: { fontSize: 14 } }}
                   value={email}
-                  validators={['required', 'isEmail']}
-                  errorMessages={[
-                    'Email is required',
-                    'Email must be a valid email address',
-                  ]}
+                  // validators={['required', 'isEmail']}
+                  // errorMessages={[
+                  //   'Email is required',
+                  //   'Email must be a valid email address',
+                  // ]}
                   InputLabelProps={{ style: { fontSize: 16 } }}
                 />
                 <TextValidator

@@ -37,6 +37,7 @@ function JobInfo() {
   const handleChangeLevelId = (event) => setLevelId(event.target.value)
   const { isOpen } = useSelector(jobInfoSelector)
   const { currentJob } = useSelector(adminSelector)
+  console.log(currentJob)
   const dispatch = useDispatch()
   return (
     <div>
@@ -84,12 +85,12 @@ function JobInfo() {
             <CardMedia
               component="image"
               image={
-                currentJob?.introImg
-                  ? currentJob?.introImg
+                currentJob?.companyLogo
+                  ? currentJob?.companyLogo
                   : 'https://st4.depositphotos.com/4329009/19956/v/380/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg'
               }
-              alt={`${currentJob?.name}'s avatar`}
-              title={`${currentJob?.name}'s avatar`}
+              alt={`${currentJob?.jobName}'s avatar`}
+              title={`${currentJob?.jobName}'s avatar`}
               style={{
                 height: 120,
                 width: 120,
@@ -104,7 +105,7 @@ function JobInfo() {
               component="div"
               style={{ maxWidth: 700, wordWrap: 'break-word' }}
             >
-              <Box fontSize={15}>{currentJob?.name}</Box>
+              <Box fontSize={15}>{currentJob?.jobName}</Box>
             </Typography>
           </Grid>
           <Grid container style={{ marginTop: 5, marginBottom: 5 }}>
@@ -115,7 +116,7 @@ function JobInfo() {
               component="div"
               style={{ maxWidth: 700, wordWrap: 'break-word', marginTop: -15 }}
             >
-              <Box fontSize={15}> {Parser(currentJob?.description + '')}</Box>
+              <Box fontSize={15}> {Parser(currentJob?.jobDetail + '')}</Box>
             </Typography>
           </Grid>
           <Grid container style={{ marginTop: 5, marginBottom: 5 }}>
@@ -141,7 +142,7 @@ function JobInfo() {
               component="div"
               style={{ maxWidth: 700, wordWrap: 'break-word' }}
             >
-              <Box fontSize={15}>{currentJob?.address?.description}</Box>
+              <Box fontSize={15}>{currentJob?.companyAddress}</Box>
             </Typography>
           </Grid>
           <Grid container style={{ marginTop: 5, marginBottom: 5 }}>
@@ -153,9 +154,9 @@ function JobInfo() {
               style={{ maxWidth: 700, wordWrap: 'break-word' }}
             >
               <Box fontSize={15}>
-                {currentJob?.lowestWage +
+                {currentJob?.lowestSalary +
                   '$ - ' +
-                  currentJob?.highestWage +
+                  currentJob?.highestSalary +
                   '$'}
               </Box>
             </Typography>
@@ -169,7 +170,7 @@ function JobInfo() {
               style={{ maxWidth: 700, wordWrap: 'break-word' }}
             >
               <Box fontSize={15}>
-                {moment(currentJob?.deadline).format('DD-MM-YYYY')}
+                {moment(currentJob?.timeExpired).format('DD-MM-YYYY')}
               </Box>
             </Typography>
           </Grid>

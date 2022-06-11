@@ -116,11 +116,23 @@ function getAllPermission() {
   //   data: [],
   // })
 }
-function getAllJobs() {
+function getAllJobs(data) {
   // return Promise.resolve({
   //   data: [],
   // })
-  return axiosClient.get(URL.getAllJobs)
+  return axiosClient.get(URL.getListJob, {
+    headers: {
+      Authorization: `Bearer ${data}`,
+    },
+  })
+}
+
+function getListJob(data) {
+  return axiosClient.get(URL.getListJob, {
+    headers: {
+      Authorization: `Bearer ${data}`,
+    },
+  })
 }
 
 function getJobById(id) {
@@ -242,4 +254,5 @@ export default {
   getAllPermission,
   editRole,
   addRole,
+  getListJob,
 }

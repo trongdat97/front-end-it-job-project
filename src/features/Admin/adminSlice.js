@@ -174,7 +174,21 @@ export const getAllJobs = createAsyncThunk(
   'admin/getalljobs',
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await adminApi.getAllJobs()
+      const response = await adminApi.getAllJobs(payload)
+      console.log(response)
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
+
+export const getListJob = createAsyncThunk(
+  'user/getListJob',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await userApi.getListJob(payload)
+      console.log(response)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data)
@@ -373,6 +387,18 @@ const adminSlice = createSlice({
       state.status = 'getAllUser.rejected'
       state.errorMessage = payload.message
     },
+
+    [getListJob.pending]: (state) => {
+      state.status = 'getListJob.pending'
+    },
+    [getListJob.fulfilled]: (state, { payload }) => {
+      state.status = 'getListJob.fulfilled'
+      state.listUser = payload
+    },
+    [getListJob.rejected]: (state, { payload }) => {
+      state.status = 'getListJob.rejected'
+      state.errorMessage = 'loi'
+    },
     [getRequestUser.pending]: (state) => {
       state.status = 'getRequestUser.pending'
     },
@@ -497,7 +523,7 @@ const adminSlice = createSlice({
     },
     [getAllJobs.rejected]: (state, { payload }) => {
       state.status = 'getAllJobs.rejected'
-      state.errorMessage = payload.message
+      state.errorMessage = 'loi '
     },
     [getJobById.pending]: (state) => {
       state.status = 'getJobById.pending'
