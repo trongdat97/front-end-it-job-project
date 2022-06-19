@@ -6,7 +6,7 @@ export const getAllUser = createAsyncThunk(
   'admin/getuser',
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await adminApi.getAllUser()
+      const response = await adminApi.getAllUser(payload)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data)

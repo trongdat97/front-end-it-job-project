@@ -61,7 +61,7 @@ import Loading from 'components/Loading/Loading'
 import { RiDeleteBin5Line, RiEdit2Line } from 'react-icons/ri'
 import { BiCategory } from 'react-icons/bi'
 import { getAllTag } from 'features/User/userSlice'
-
+import storageUser from 'constants/storageUser'
 const columns = [
   { id: 'index', label: 'INDEX', minWidth: 50 },
   { id: 'name', label: 'NAME', minWidth: 200 },
@@ -74,12 +74,13 @@ function createData(index, name, id) {
 
 function TagsScreen(props) {
   const classes = useStyles()
-  const { tags, status, errorMessage } = useSelector(adminSelector)
+  const { listUser, tags, status, errorMessage } = useSelector(adminSelector)
   const dispatch = useDispatch()
   const { isOpenDrawer } = useSelector(headerSelector)
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(10)
   const [rows, setRows] = React.useState([])
+  const tokenUser = localStorage.getItem(storageUser.TOKEN)
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
@@ -89,8 +90,11 @@ function TagsScreen(props) {
     setPage(0)
   }
 
+  // useEffect(() => {
+  //   dispatch(getAllTags())
+  // }, [])
   useEffect(() => {
-    dispatch(getAllTags())
+    dispatch(getAllUser(tokenUser))
   }, [])
 
   useEffect(() => {
@@ -112,19 +116,15 @@ function TagsScreen(props) {
     }
   }, [status])
   useEffect(() => {
-    if (
-      status === 'getAllTags.fulfilled' ||
-      status === 'searchCategory.fulfilled'
-    ) {
-      let temp = []
-      tags.map((item) => {
-        temp.push(createData(temp?.length + 1, item?.name, item?.id))
-      })
-      setRows(temp)
-    }
+    let temp = []
+
+    listUser.map((item) => {
+      temp.push(createData(temp?.length + 1, item?.name, item?.email))
+    })
+    setRows(temp)
   }, [status])
   const handleSubmit = () => {
-    dispatch(getAllTags())
+    dispatch(getAllUser(tokenUser))
   }
 
   return (
@@ -157,7 +157,7 @@ function TagsScreen(props) {
         <Grid>
           <Typography component="div">
             <Box fontSize={24} fontWeight={700} style={{ color: '#5e5873' }}>
-              Tags
+              Role
             </Box>
           </Typography>
           <Grid container justifyContent="space-between">
@@ -174,7 +174,7 @@ function TagsScreen(props) {
                 dispatch(setType('add'))
               }}
             >
-              Add tag
+              Add Role
             </Button>
           </Grid>
           <Paper

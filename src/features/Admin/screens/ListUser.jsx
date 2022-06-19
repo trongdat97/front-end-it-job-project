@@ -50,6 +50,7 @@ import Loading from 'components/Loading/Loading'
 import { FaEye } from 'react-icons/fa'
 import { RiDeleteBin5Line } from 'react-icons/ri'
 import { BiUser } from 'react-icons/bi'
+import storageUser from 'constants/storageUser'
 
 const columns = [
   { id: 'index', label: 'INDEX', minWidth: 50, align: 'center' },
@@ -89,6 +90,7 @@ function ListUser(props) {
   const [rows, setRows] = React.useState([])
   const query = useLocation().search
   const params = new URLSearchParams(query)
+  const tokenUser = localStorage.getItem(storageUser.TOKEN)
   const { type, value } = useSelector(searchSelector)
   useEffect(() => {
     dispatch(
@@ -109,7 +111,7 @@ function ListUser(props) {
     setPage(0)
   }
   useEffect(() => {
-    dispatch(getAllUser())
+    dispatch(getAllUser(tokenUser))
   }, [])
 
   useEffect(() => {
@@ -137,7 +139,7 @@ function ListUser(props) {
     ) {
       let temp = []
       listUser.map((item) => {
-        if (item?.role?.role !== 'ADMIN')
+        if (item?.role?.role !== 'ROLE_ADMIN')
           temp.push(
             createData(
               temp.length + 1,

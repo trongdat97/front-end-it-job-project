@@ -83,6 +83,14 @@ function changePhone(data) {
 function changeAvatar(data) {
   return axiosClient.put(URL.changeAvatar, data)
 }
+
+function getAllCv(data) {
+  return axiosClient.get(URL.getAllCv, {
+    headers: {
+      Authorization: `Bearer ${data}`,
+    },
+  })
+}
 export default {
   login,
   signup,
@@ -99,4 +107,5 @@ export default {
   changePhone,
   changeAvatar,
   getAllJob,
+  getAllCv,
 }

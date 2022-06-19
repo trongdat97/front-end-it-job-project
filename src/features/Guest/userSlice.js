@@ -159,6 +159,18 @@ export const changeAvatar = createAsyncThunk(
     }
   }
 )
+export const getAllCv = createAsyncThunk(
+  'user/getAllCv',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await userApi.getAllCv(payload)
+      console.log(response)
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
 
 const userSlice = createSlice({
   name: 'user',
@@ -170,6 +182,7 @@ const userSlice = createSlice({
     jobList: [],
     tagList: [],
     candidateList: [],
+    listCv: [],
   },
   reducers: {
     clearState: (state) => {
@@ -196,7 +209,17 @@ const userSlice = createSlice({
       state.status = 'uploadFile.rejected'
       // state.errorMessage = payload.message
     },
-
+    [getAllCv.pending]: (state) => {
+      state.status = 'getAllCv.pending'
+    },
+    [getAllCv.fulfilled]: (state, { payload }) => {
+      state.status = 'getAllCv.fulfilled'
+      state.file = payload.url
+    },
+    [getAllCv.rejected]: (state, { payload }) => {
+      state.status = 'getAllCv.rejected'
+      // state.errorMessage = payload.message
+    },
     [getAllJob.pending]: (state) => {
       state.status = 'getAllJob.pending'
     },

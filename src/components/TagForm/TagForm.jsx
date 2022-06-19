@@ -121,7 +121,7 @@ function TagForm() {
           </IconButton>
         </Box>
         <DialogTitle>
-          {type === 'add' ? 'Add a new tag' : 'Edit a tag'}
+          {type === 'add' ? 'Add a new role' : 'Edit a tag'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>

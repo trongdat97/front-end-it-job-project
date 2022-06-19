@@ -15,11 +15,16 @@ function getProfile() {
   return axiosClient.get(URL.getProfile)
 }
 
-function getAllUser() {
+function getAllUser(data) {
   // return Promise.resolve({
   //   data: [],
   // })
-  return axiosClient.get(URL.getAllUserUrl)
+  return axiosClient.get(URL.getAllUserUrl, {
+    headers: {
+      Authorization: `Bearer ${data}`,
+    },
+  })
+  // return axiosClient.get(URL.getAllUserUrl)
 }
 
 function getRequestUser() {

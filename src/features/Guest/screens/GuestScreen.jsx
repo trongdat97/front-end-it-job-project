@@ -79,13 +79,6 @@ const recommendUser = [
     email: 'luongle@gmail.com',
     phone: '0312312333',
   },
-  {
-    name: 'Ngo Hoang Minh',
-    avatar:
-      'https://pickaface.net/gallery/avatar/unr_random_180410_1905_z1exb.png',
-    email: 'minhhoangngo@gmail.com',
-    phone: '0312353123',
-  },
 ]
 const StyledMenuItem = withStyles({
   root: {
@@ -556,14 +549,13 @@ function GuestScreen(props) {
         <Grid item xs={6}>
           <TabPanel value={value} index={0}>
             <About />
-            <ListCv />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <JobPost />
           </TabPanel>
         </Grid>
         <Grid item xs={3} className={classes.recommend}>
-          <Typography component="div">
+          {/* <Typography component="div">
             <Box fontSize={18} fontWeight={700} style={{ color: '#5e5873' }}>
               Candidates you may need
             </Box>
@@ -605,7 +597,8 @@ function GuestScreen(props) {
                 </Button>
               </Grid>
             </Grid>
-          ))}
+          ))} */}
+          <ListCv />
         </Grid>
       </Grid>
       <JobDetails />
@@ -674,7 +667,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2.5),
     marginTop: theme.spacing(3),
     borderRadius: 10,
-    height: 600,
+    height: 480,
     boxShadow:
       'rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px',
   },

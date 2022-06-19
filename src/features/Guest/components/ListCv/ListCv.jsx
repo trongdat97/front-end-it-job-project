@@ -24,10 +24,11 @@ import {
   WorkOutlined,
 } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
+import axios from 'axios'
 import { headerSelector } from 'components/Header/headerSlice'
 import SearchBox from 'components/SearchBox/SearchBox'
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import {
@@ -41,6 +42,7 @@ import {
   getUserById,
   searchJob,
 } from 'features/Admin/adminSlice'
+import { getAllCv } from '../../userSlice'
 import JobInfo from '../../../Admin/components/JobInfo'
 import { showInfo } from '../../../Admin/components/jobInfoSlice'
 import ConfirmDialog from 'components/ConfirmDialog/ConfirmDialog'
@@ -55,23 +57,23 @@ import Loading from 'components/Loading/Loading'
 import { FaEye } from 'react-icons/fa'
 import { RiDeleteBin5Line } from 'react-icons/ri'
 import { MdWorkOutline } from 'react-icons/md'
-
+import storageUser from 'constants/storageUser'
 const columns = [
-  { id: 'index', label: 'INDEX', minWidth: 40, align: 'center' },
-  { id: 'name', label: 'NAME', minWidth: 200 },
-  { id: 'email', label: "USER'S EMAIL", minWidth: 200 },
-  {
-    id: 'createdAt',
-    label: 'CREATED AT',
-    minWidth: 170,
-    align: 'center',
-  },
-  {
-    id: 'updatedAt',
-    label: 'UPDATED AT',
-    minWidth: 170,
-    align: 'center',
-  },
+  // { id: 'index', label: 'INDEX', minWidth: 10, align: 'center' },
+  { id: 'name', label: 'NAME', minWidth: 100 },
+  // { id: 'email', label: "USER'S EMAIL", minWidth: 200 },
+  // {
+  //   id: 'createdAt',
+  //   label: 'CREATED AT',
+  //   minWidth: 170,
+  //   align: 'center',
+  // },
+  // {
+  //   id: 'updatedAt',
+  //   label: 'UPDATED AT',
+  //   minWidth: 170,
+  //   align: 'center',
+  // },
   {
     id: 'action',
     label: 'ACTION',
@@ -86,6 +88,7 @@ function createData(index, name, email, createdAt, updatedAt, action) {
 
 function ListJob(props) {
   const classes = useStyles()
+  const tokenUser = localStorage.getItem(storageUser.TOKEN)
   const { listJobs, status } = useSelector(adminSelector)
   const dispatch = useDispatch()
   const { isOpenDrawer } = useSelector(headerSelector)
@@ -95,11 +98,30 @@ function ListJob(props) {
   const query = useLocation().search
   const params = new URLSearchParams(query)
   const { type, value } = useSelector(searchSelector)
+  const [listCv, setListCv] = useState([])
   useEffect(() => {
     dispatch(
       setSearch({ type: params.get('object'), value: params.get('query') })
     )
   }, [])
+
+  useEffect(() => {
+    dispatch(getAllCv(tokenUser))
+  }, [])
+
+  useEffect(() => {
+    const getApi = 'http://localhost:8400/cv'
+    axios
+      .get(getApi, {
+        headers: {
+          Authorization: `Bearer ${tokenUser}`,
+        },
+      })
+      .then((response) => {
+        setListCv(response.data.data)
+      })
+  }, [])
+  console.log(listCv)
 
   useEffect(() => {
     if (type === 'job') dispatch(searchJob(value))
@@ -135,11 +157,11 @@ function ListJob(props) {
   useEffect(() => {
     if (status === 'getAllJobs.fulfilled' || status === 'searchJob.fulfilled') {
       let temp = []
-      listJobs.map((item) => {
+      listCv.map((item) => {
         temp.push(
           createData(
             temp.length + 1,
-            item?.jobName,
+            item?.name,
             item?.companyName,
             moment(item?.createdat).format('hh:mm A - DD/MM/YYYY'),
             moment(item?.updatedat).format('hh:mm A - DD/MM/YYYY'),
@@ -180,6 +202,8 @@ function ListJob(props) {
       className={classes.root}
       style={{
         marginTop: 30,
+        height: 440,
+        overflow: 'scroll',
       }}
     >
       <JobInfo />
@@ -293,7 +317,7 @@ function ListJob(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // padding: theme.spacing(4),
+    padding: theme.spacing(0),
   },
 }))
 
