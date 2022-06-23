@@ -6,7 +6,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      !localStorage.getItem(storageAdmin.TOKEN) ||
+      localStorage.getItem(storageAdmin.TOKEN) ||
       sessionStorage.getItem(storageAdmin.TOKEN) ? (
         <Component {...props} />
       ) : (
