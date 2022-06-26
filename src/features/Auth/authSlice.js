@@ -48,8 +48,10 @@ export const userLogin = createAsyncThunk(
       const response = await userApi.login(payload)
       console.log(response)
       if (payload.remember) {
+        localStorage.setItem(storageUser.USERNAME, response.data.username)
         localStorage.setItem(storageUser.TOKEN, response.data.accessToken)
       } else {
+        sessionStorage.setItem(storageUser.USERNAME, response.data.username)
         sessionStorage.setItem(storageUser.TOKEN, response.data.accessToken)
       }
       return response.data
@@ -97,8 +99,8 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state = undefined
-      localStorage.removeItem(storageAdmin.TOKEN)
-      sessionStorage.removeItem(storageAdmin.TOKEN)
+      localStorage.removeItem(storageUser.TOKEN, storageUser.USERNAME)
+      sessionStorage.removeItem(storageUser.TOKEN, storageUser.USERNAME)
       return state
     },
     clearState: (state) => {

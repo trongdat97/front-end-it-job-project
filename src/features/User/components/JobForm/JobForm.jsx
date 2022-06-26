@@ -207,6 +207,7 @@ function JobForm() {
         createAt: null,
         companyLogo: introImg,
         jobDetail: convertToHTML(editorStateDescription.getCurrentContent()),
+        username: 'admin',
       })
     )
   }
