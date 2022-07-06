@@ -323,7 +323,7 @@ export default function Header() {
                               fontWeight={600}
                               style={{ color: '#020202' }}
                             >
-                              17PFIEV3
+                              Admin
                             </Box>
                           </Typography>
                           <Typography component="div">
@@ -448,7 +448,7 @@ export default function Header() {
                   fontWeight={500}
                   style={{ marginLeft: 10, color: '#7367f0' }}
                 >
-                  IT Network
+                  Job Search System
                 </Box>
               </Typography>
             </Grid>

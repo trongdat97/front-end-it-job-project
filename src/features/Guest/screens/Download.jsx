@@ -20,7 +20,7 @@ function Download(props) {
             }}
           >
             App mobile <br />
-            IT Network
+            Job Search System
           </Box>
         </Typography>
         <Typography component="div">
@@ -35,7 +35,7 @@ function Download(props) {
           >
             You are an applicant and you want to
             <br />
-            find a suitable job. Please download app mobile IT Network for
+            find a suitable job. Please download app mobile Job Search System for
             applicant and join with us.
           </Box>
         </Typography>

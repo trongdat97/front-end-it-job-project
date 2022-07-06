@@ -62,7 +62,7 @@ function Contact(props) {
                 marginTop: 50,
               }}
             >
-              IT Network - Not only a network, but also a community
+              Job Search System - Not only a network, but also a community
             </Box>
           </Typography>
           <Typography component="div">

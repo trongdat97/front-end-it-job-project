@@ -127,7 +127,7 @@ function Dashboard(props) {
             />
             <Typography component="div">
               <Box fontSize={28} fontWeight={500} style={{ color: '#fff' }}>
-                Congratulations 17PFIEV3,
+                Congratulations Admin,
               </Box>
             </Typography>
             <Typography component="div">

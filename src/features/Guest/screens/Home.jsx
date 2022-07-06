@@ -20,7 +20,7 @@ function Home(props) {
             }}
           >
             Welcome to our <br />
-            IT Network
+            Job Search System
           </Box>
         </Typography>
         <Typography component="div">

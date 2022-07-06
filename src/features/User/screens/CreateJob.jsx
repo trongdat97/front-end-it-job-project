@@ -211,7 +211,7 @@ function CreateJob(props) {
                     fontWeight={500}
                     style={{ marginLeft: 10, color: '#7367f0' }}
                   >
-                    IT Network
+                    Job Search System
                   </Box>
                 </Typography>
               </Grid>

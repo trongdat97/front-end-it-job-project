@@ -27,28 +27,28 @@ function Contact(props) {
           <IconButton
             target="_blank"
             component="a"
-            href="https://www.facebook.com/lvduc99/"
+            href="https://www.facebook.com/"
           >
             <FaFacebook fontSize={28} style={{ color: '#fff' }} />
           </IconButton>
           <IconButton
             target="_blank"
             component="a"
-            href="https://mail.google.com/mail/u/0/#inbox"
+            href="https://mail.google.com/"
           >
             <FaGoogle fontSize={28} style={{ color: '#fff' }} />
           </IconButton>
           <IconButton
             target="_blank"
             component="a"
-            href="https://www.linkedin.com/in/lvd1812/"
+            href="https://www.linkedin.com/"
           >
             <FaLinkedin fontSize={28} style={{ color: '#fff' }} />
           </IconButton>
           <IconButton
             target="_blank"
             component="a"
-            href="https://www.instagram.com/cudnavel.99/"
+            href="https://www.instagram.com/"
           >
             <FaInstagram fontSize={28} style={{ color: '#fff' }} />
           </IconButton>
@@ -62,7 +62,7 @@ function Contact(props) {
                 marginTop: 50,
               }}
             >
-              IT Network - Not only a network, but also a community
+              Job Search System - Not only a network, but also a community
             </Box>
           </Typography>
           <Typography component="div">

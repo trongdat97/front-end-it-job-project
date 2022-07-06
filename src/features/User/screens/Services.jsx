@@ -16,7 +16,7 @@ function Services(props) {
         </Typography>
         <Typography component="div" style={{ width: 280, marginTop: 20 }}>
           <Box fontSize={20} fontWeight={600} textAlign="center">
-            Join the IT network to take your opportunity
+            Join the Job Search System to take your opportunity
           </Box>
         </Typography>
         <Grid container justifyContent="space-around" style={{ marginTop: 20 }}>

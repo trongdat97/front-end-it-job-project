@@ -93,7 +93,7 @@ function UserLogin() {
               fontWeight={500}
               style={{ marginLeft: 10, color: '#7367f0' }}
             >
-              IT Network
+              Job Search System
             </Box>
           </Typography>
         </Grid>
@@ -121,7 +121,7 @@ function UserLogin() {
             <Grid className={classes.formContainer}>
               <Typography component="div" className={classes.formTilte}>
                 <Box fontSize={24} fontWeight={500}>
-                  Welcome to IT Network! 👋
+                  Welcome to Job Search System! 👋
                 </Box>
               </Typography>
               <Typography component="div" className={classes.describe}>
