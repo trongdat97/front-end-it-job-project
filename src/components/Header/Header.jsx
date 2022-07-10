@@ -37,6 +37,8 @@ import { showDialog } from 'components/ConfirmDialog/dialogSlice'
 import { authSelector, getProfile, logout } from 'features/Auth/authSlice'
 import { FiUser, FiCircle, FiSearch, FiMoon } from 'react-icons/fi'
 import FlagIcon from 'assets/flag.png'
+import storageUser from 'constants/storageUser'
+
 import {
   BiHomeAlt,
   BiCategory,
@@ -113,10 +115,11 @@ export default function Header() {
   const dispatch = useDispatch()
   const { isAuth } = useSelector(headerSelector)
   const { info } = useSelector(authSelector)
+  const username = localStorage.getItem(storageUser.USERNAME)
 
   useEffect(() => {
     dispatch(getAuth())
-    dispatch(getProfile())
+    dispatch(getProfile(username))
   }, [])
 
   const [isExpandedUserMenu, setIsExpandedUserMenu] = React.useState(false)

@@ -33,6 +33,7 @@ import { showSnackbar } from 'components/CustomSnackBar/snackbarSlice'
 import { SNACK_BAR_TYPE } from 'constants/snackbarType'
 import { message } from 'constants/message'
 import Loading from 'components/Loading/Loading'
+import storageUser from 'constants/storageUser'
 
 function About(props) {
   const classes = useStyles()
@@ -52,6 +53,7 @@ function About(props) {
   const history = useHistory()
   const handleChangePhone = (event) => setPhone(event.target.value)
   const [isChangePhone, setIsChangePhone] = useState(false)
+  const username = localStorage.getItem(storageUser.USERNAME)
   useEffect(() => {
     if (status === 'getProfile.fulfilled') {
       setEmail(info?.email)
@@ -75,7 +77,7 @@ function About(props) {
           message: message.CHANGE_PHONE_SUCCESS,
         })
       )
-      dispatch(getProfile())
+      dispatch(getProfile(username))
       setIsChangePhone(false)
     }
   }, [userStatus])

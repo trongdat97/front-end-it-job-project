@@ -54,6 +54,7 @@ import { authSelector, getAllCity } from 'features/Auth/authSlice'
 import moment from 'moment'
 import { convertToHTML, convertFromHTML } from 'draft-convert'
 import { stateFromHTML } from 'draft-js-import-html'
+import storageUser from 'constants/storageUser'
 function SlideTransition(props) {
   return <Slide {...props} direction="up" timeout={200} />
 }
@@ -109,6 +110,8 @@ function JobForm() {
   const [introImg, setIntroImg] = useState('')
   const handleChangeImg = (event) => setIntroImg(event.target.value)
   const handleChangeAddress = (event) => setAddress(event.target.value)
+
+  const username = localStorage.getItem(storageUser.USERNAME)
   const handleChangeDeadline = (date) => {
     setDeadline(date)
     setIsOpenDatePicker(false)
@@ -207,7 +210,7 @@ function JobForm() {
         createAt: null,
         companyLogo: introImg,
         jobDetail: convertToHTML(editorStateDescription.getCurrentContent()),
-        username: 'admin',
+        username: username,
       })
     )
   }

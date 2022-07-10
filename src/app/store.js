@@ -16,6 +16,7 @@ import jobDetailsReducer from 'features/User/components/JobDetails/jobDetailsSli
 import candidateFormReducer from 'features/User/components/CandidateForm/candidateFormSlice'
 import editPermissionReducer from 'features/Admin/components/editPermissionSlice'
 import addPermissionReducer from 'features/Admin/components/addPermissionSlice'
+import cvFormReducer from 'features/Guest/components/CvForm/cvFormSlice'
 
 const rootReducer = {
   auth: authReducer,
@@ -35,6 +36,7 @@ const rootReducer = {
   candidateForm: candidateFormReducer,
   editPermission: editPermissionReducer,
   addPermission: addPermissionReducer,
+  cvForm: cvFormReducer,
 }
 
 const store = configureStore({

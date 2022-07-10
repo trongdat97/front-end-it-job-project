@@ -34,11 +34,14 @@ import { useHistory } from 'react-router-dom'
 import ContributorBG from 'assets/contributorBg.jpg'
 import moment from 'moment'
 import JobForm from '../components/JobForm/JobForm'
-import { showForm, setType } from '../components/JobForm/jobFormSlice'
+import CvForm from '../components/CvForm/CvForm'
+import { showFormCv, setType } from '../components/CvForm/cvFormSlice'
+//import { showForm, setType } from '../components/JobForm/jobFormSlice'
 import JobPost from '../components/JobPost/JobPost'
 import JobDetails from '../components/JobDetails/JobDetails'
 import { getJobById } from 'features/Admin/adminSlice'
 import About from '../components/About/About'
+import storageUser from 'constants/storageUser'
 import {
   changeAvatar,
   uploadFile,
@@ -122,6 +125,7 @@ function GuestScreen(props) {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const classes = useStyles()
   const dispatch = useDispatch()
+  const username = localStorage.getItem(storageUser.USERNAME)
   const { info, status } = useSelector(authSelector)
   const history = useHistory()
   const [value, setValue] = React.useState(0)
@@ -134,7 +138,7 @@ function GuestScreen(props) {
   }
   useEffect(() => {
     dispatch(getAuth())
-    dispatch(getProfile())
+    dispatch(getProfile(username))
   }, [])
   const { file, type } = useSelector(userSelector)
   const handleMenu = (event) => {
@@ -161,7 +165,7 @@ function GuestScreen(props) {
   useEffect(() => {
     if (type === 'avatar') {
       dispatch(changeAvatar({ profileUrl: file }))
-      dispatch(getProfile())
+      dispatch(getProfile(username))
       dispatch(setTypeFile(''))
     }
   }, [file])
@@ -347,7 +351,7 @@ function GuestScreen(props) {
         </Toolbar>
       </AppBar>
       <Grid item xs className={classes.imageContainer}>
-        <JobForm />
+        <CvForm />
         <CardMedia
           image={ContributorBG}
           style={{
@@ -450,11 +454,21 @@ function GuestScreen(props) {
           className={classes.button}
           onClick={() => {
             dispatch(setType('add'))
-            dispatch(showForm({ onSubmit: handleAdd }))
+            dispatch(showFormCv({ onSubmit: handleAdd }))
           }}
         >
-          POST NEW JOB
+          POST NEW CV
         </Button>
+        {/* <Button
+          variant="contained"
+          component="label"
+
+          Upload File
+          <input  
+            type="file"
+            hidden
+          />
+        </Button> */}
       </Grid>
       <Grid item style={{ display: 'flex', flexDirection: 'row' }}>
         <Grid sm={3} container className={classes.about}>

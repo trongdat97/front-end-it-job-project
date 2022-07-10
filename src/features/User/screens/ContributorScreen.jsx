@@ -39,6 +39,7 @@ import JobPost from '../components/JobPost/JobPost'
 import JobDetails from '../components/JobDetails/JobDetails'
 import { getJobById } from 'features/Admin/adminSlice'
 import About from '../components/About/About'
+import storageUser from 'constants/storageUser'
 import {
   changeAvatar,
   uploadFile,
@@ -131,6 +132,7 @@ function ContributorScreen(props) {
   const { info, status } = useSelector(authSelector)
   const history = useHistory()
   const [value, setValue] = React.useState(0)
+  const username = localStorage.getItem(storageUser.USERNAME)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -140,7 +142,7 @@ function ContributorScreen(props) {
   }
   useEffect(() => {
     dispatch(getAuth())
-    dispatch(getProfile())
+    dispatch(getProfile(username))
   }, [])
   const { file, type } = useSelector(userSelector)
   const handleMenu = (event) => {
@@ -167,7 +169,7 @@ function ContributorScreen(props) {
   useEffect(() => {
     if (type === 'avatar') {
       dispatch(changeAvatar({ profileUrl: file }))
-      dispatch(getProfile())
+      dispatch(getProfile(username))
       dispatch(setTypeFile(''))
     }
   }, [file])

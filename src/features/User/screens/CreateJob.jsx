@@ -46,6 +46,8 @@ import AddJobBG from 'assets/addJob.jpg'
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
 import { useState } from 'react'
 import DateFnsUtils from '@date-io/date-fns'
+import storageUser from 'constants/storageUser'
+
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -55,6 +57,7 @@ import { uploadFile, userSelector, getAllTag, addJob } from '../userSlice'
 function SlideTransition(props) {
   return <Slide {...props} direction="up" timeout={200} />
 }
+const username = localStorage.getItem(storageUser.USERNAME)
 
 const StyledMenuItem = withStyles({
   root: {
@@ -77,6 +80,7 @@ function CreateJob(props) {
   const [anchorEl, setAnchorEl] = useState(null)
   const classes = useStyles()
   const dispatch = useDispatch()
+  const username = localStorage.getItem(storageUser.USERNAME)
   const [editorStateDescription, setEditorStateDescription] = useState(() =>
     EditorState.createEmpty()
   )
@@ -151,7 +155,7 @@ function CreateJob(props) {
 
   useEffect(() => {
     dispatch(getAuth())
-    dispatch(getProfile())
+    dispatch(getProfile(username))
   }, [])
 
   const handleMenu = (event) => {

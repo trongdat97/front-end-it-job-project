@@ -71,6 +71,7 @@ import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { convertToHTML } from 'draft-convert'
+import storageUser from 'constants/storageUser'
 import moment from 'moment'
 function CreateJob(props) {
   const [activeStep, setActiveStep] = useState(0)
@@ -116,6 +117,8 @@ function CreateJob(props) {
 
   const handleChangeType = (event) => setType(event.target.value)
 
+  const username = localStorage.getItem(storageUser.USERNAME)
+
   const handleChangeDeadline = (date) => {
     setDeadline(date)
     setIsOpenDatePicker(false)
@@ -151,7 +154,7 @@ function CreateJob(props) {
 
   useEffect(() => {
     dispatch(getAuth())
-    dispatch(getProfile())
+    dispatch(getProfile(username))
   }, [])
 
   const handleMenu = (event) => {

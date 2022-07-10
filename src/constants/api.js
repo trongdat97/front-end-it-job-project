@@ -2,7 +2,7 @@ const loginUrl = '/auth/signin'
 
 const signupUrl = '/auth/signup'
 
-const getProfile = '/auth/me'
+const getProfile = '/auth/usersv/get'
 
 const getAllUserUrl = '/auth/usersv/getall'
 
@@ -64,7 +64,16 @@ const getJobDetail1 = '/jobs/jobs'
 
 const getAllCv = '/cv/cv'
 
+const getCvByUsername = '/cv/cv/2/files/user'
+
+const getJobByUsername = '/jobs/jobs/findjob'
+
+const postCv = '/cv/cv/2/upload'
+
 export default {
+  postCv,
+  getCvByUsername,
+  getJobByUsername,
   getListJob,
   getJobDetail1,
   loginUrl,

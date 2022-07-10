@@ -22,7 +22,7 @@ import {
 } from 'features/Auth/authSlice'
 import { getAuth, headerSelector } from 'components/Header/headerSlice'
 import { useDispatch, useSelector } from 'react-redux'
-
+import storageUser from 'constants/storageUser'
 import CustomSnackBar from 'components/CustomSnackBar/CustomSnackBar'
 import { SNACK_BAR_TYPE } from 'constants/snackbarType'
 import { makeStyles } from '@material-ui/core/styles'
@@ -55,6 +55,8 @@ function LoginForm() {
 
   const handleCheckBoxChange = () => setRemember(!remember)
 
+  const username = localStorage.getItem(storageUser.USERNAME)
+
   const handleSubmit = () => {
     dispatch(adminLogin({ username: email, password, remember }))
   }
@@ -72,7 +74,7 @@ function LoginForm() {
     if (status === 'adminLogin.fulfilled') {
       dispatch(clearState())
       dispatch(getAuth())
-      dispatch(getProfile())
+      dispatch(getProfile(username))
       history.push('/admin/dashboard')
     }
   }, [status])

@@ -42,7 +42,11 @@ import {
   getUserById,
   searchJob,
 } from 'features/Admin/adminSlice'
-import { getAllCv } from '../../userSlice'
+import {
+  getCvByUsername,
+  getAllCv,
+  userSelector,
+} from 'features/Guest/userSlice'
 import JobInfo from '../../../Admin/components/JobInfo'
 import { showInfo } from '../../../Admin/components/jobInfoSlice'
 import ConfirmDialog from 'components/ConfirmDialog/ConfirmDialog'
@@ -98,30 +102,36 @@ function ListJob(props) {
   const query = useLocation().search
   const params = new URLSearchParams(query)
   const { type, value } = useSelector(searchSelector)
+  const { cvListByUsername, status: newstatus } = useSelector(userSelector)
   const [listCv, setListCv] = useState([])
+  const username = sessionStorage.getItem(storageUser.USERNAME)
   useEffect(() => {
     dispatch(
       setSearch({ type: params.get('object'), value: params.get('query') })
     )
   }, [])
 
-  useEffect(() => {
-    dispatch(getAllCv(tokenUser))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getAllCv(tokenUser))
+  // }, [])
 
   useEffect(() => {
-    const getApi = 'http://localhost:8400/cv'
-    axios
-      .get(getApi, {
-        headers: {
-          Authorization: `Bearer ${tokenUser}`,
-        },
-      })
-      .then((response) => {
-        setListCv(response.data.data)
-      })
+    dispatch(getCvByUsername(username))
   }, [])
-  console.log(listCv)
+
+  // useEffect(() => {
+  //   const getApi = 'http://localhost:8400/cv'
+  //   axios
+  //     .get(getApi, {
+  //       headers: {
+  //         Authorization: `Bearer ${tokenUser}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       setListCv(response.data.data)
+  //     })
+  // }, [])
+  // console.log(listCv)
 
   useEffect(() => {
     if (type === 'job') dispatch(searchJob(value))
@@ -155,9 +165,12 @@ function ListJob(props) {
     }
   }, [status])
   useEffect(() => {
-    if (status === 'getAllJobs.fulfilled' || status === 'searchJob.fulfilled') {
+    if (
+      newstatus === 'getCvByUsername.fulfilled' ||
+      newstatus === 'getCvByUsername.fulfilled'
+    ) {
       let temp = []
-      listCv.map((item) => {
+      cvListByUsername.map((item) => {
         temp.push(
           createData(
             temp.length + 1,
@@ -196,7 +209,7 @@ function ListJob(props) {
       })
       setRows(temp)
     }
-  }, [status])
+  }, [newstatus])
   return (
     <Container
       className={classes.root}

@@ -31,6 +31,7 @@ import {
   getJobByUserId,
   userSelector,
   getAllJob,
+  getJobByUsername,
 } from 'features/User/userSlice'
 import {
   MdLocationPin,
@@ -57,6 +58,7 @@ import ConfirmDialog from 'components/ConfirmDialog/ConfirmDialog'
 import { showCandidateForm } from '../CandidateForm/candidateFormSlice'
 import CandidateForm from '../CandidateForm/CandidateForm'
 import Loading from 'components/Loading/Loading'
+
 import storageUser from 'constants/storageUser'
 const StyledMenuItem = withStyles({
   root: {
@@ -76,6 +78,7 @@ function JobPost(props) {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
   const [currentOne, setCurrentOne] = React.useState({})
+  const username = localStorage.getItem(storageUser.USERNAME)
   const handleClick = (event, item) => {
     setAnchorEl(event.currentTarget)
     setCurrentOne(item)
@@ -91,7 +94,7 @@ function JobPost(props) {
   console.log(jobList1)
 
   useEffect(() => {
-    dispatch(getAllJob(tokenUser))
+    dispatch(getJobByUsername(username))
   }, [])
   const onSubmit = () => console.log('view')
   const handleView = (item) => {

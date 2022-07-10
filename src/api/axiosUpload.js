@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { API_URL } from 'constants/env'
 import queryString from 'query-string'
+import storageAdmin from 'constants/storageAdmin'
 
 const axiosUpload = axios.create({
   baseURL: API_URL,
@@ -12,7 +13,14 @@ const axiosUpload = axios.create({
 })
 
 axiosUpload.interceptors.request.use(async (config) => {
-  console.log(config)
+  if (sessionStorage.getItem(storageAdmin.TOKEN))
+    config.headers['Authorization'] = `Bearer ${sessionStorage.getItem(
+      storageAdmin.TOKEN
+    )}`
+  if (localStorage.getItem(storageAdmin.TOKEN))
+    config.headers['Authorization'] = `Bearer ${localStorage.getItem(
+      storageAdmin.TOKEN
+    )}`
   return config
 })
 
@@ -24,5 +32,4 @@ axiosUpload.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-
 export default axiosUpload

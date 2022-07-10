@@ -1,7 +1,7 @@
 const storageAdmin = {
   TOKEN: 'access-token',
   INFO: 'info',
-  ROLE: 'role',
+  ROLE: 'roles',
   USERNAME: 'username',
 }
 export default storageAdmin

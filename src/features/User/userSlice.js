@@ -48,6 +48,18 @@ export const getJobByUserId = createAsyncThunk(
     }
   }
 )
+export const getJobByUsername = createAsyncThunk(
+  'user/getjobbyusername',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await userApi.getJobByUsername(payload)
+      return response.data
+      console.log(response.data)
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
 
 export const getAllJob = createAsyncThunk(
   'user/getAllJob',
@@ -159,6 +171,18 @@ export const changeAvatar = createAsyncThunk(
     }
   }
 )
+export const getCvByUsername = createAsyncThunk(
+  'user/getCvByUsername',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await userApi.getCvByUsername(payload)
+      return response.data
+      console.log(response.data)
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
 
 const userSlice = createSlice({
   name: 'user',
@@ -194,6 +218,28 @@ const userSlice = createSlice({
     },
     [uploadFile.rejected]: (state, { payload }) => {
       state.status = 'uploadFile.rejected'
+      // state.errorMessage = payload.message
+    },
+    [getCvByUsername.pending]: (state) => {
+      state.status = 'getCvByUsername.pending'
+    },
+    [getCvByUsername.fulfilled]: (state, { payload }) => {
+      state.status = 'getCvByUsername.fulfilled'
+      state.cvListByUsername = payload
+    },
+    [getCvByUsername.rejected]: (state, { payload }) => {
+      state.status = 'getCvByUsername.rejected'
+      // state.errorMessage = payload.message
+    },
+    [getJobByUsername.pending]: (state) => {
+      state.status = 'getJobByUsername.pending'
+    },
+    [getJobByUsername.fulfilled]: (state, { payload }) => {
+      state.status = 'getJobByUsername.fulfilled'
+      state.jobList = payload
+    },
+    [getJobByUsername.rejected]: (state, { payload }) => {
+      state.status = 'getJobByUsername.rejected'
       // state.errorMessage = payload.message
     },
 

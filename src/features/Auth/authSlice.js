@@ -33,8 +33,9 @@ export const getProfile = createAsyncThunk(
   'user/info',
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await adminApi.getProfile()
+      const response = await adminApi.getProfile(payload)
       return response.data
+      console.log(response.data)
     } catch (error) {
       return rejectWithValue(error?.message ? error : error.response.data)
     }
@@ -127,7 +128,7 @@ const authSlice = createSlice({
     },
     [getProfile.fulfilled]: (state, { payload }) => {
       state.status = 'getProfile.fulfilled'
-      state.info = payload[0]
+      state.info = payload
     },
     [getProfile.rejected]: (state, { payload }) => {
       state.status = 'getProfile.rejected'

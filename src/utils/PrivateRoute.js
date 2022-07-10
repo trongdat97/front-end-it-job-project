@@ -1,5 +1,6 @@
 import storageAdmin from 'constants/storageAdmin'
 import storageUser from 'constants/storageUser'
+import storageMod from 'constants/storagePm'
 import { Redirect, Route } from 'react-router-dom'
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -19,6 +20,21 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 export const PrivateRouteUser = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      localStorage.getItem(storageUser.TOKEN) ||
+      sessionStorage.getItem(storageUser.TOKEN) ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{ pathname: '/login', state: { from: props.location } }}
+        />
+      )
+    }
+  />
+)
+export const PrivateRouteMod = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>

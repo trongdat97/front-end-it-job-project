@@ -33,6 +33,7 @@ import { showSnackbar } from 'components/CustomSnackBar/snackbarSlice'
 import { SNACK_BAR_TYPE } from 'constants/snackbarType'
 import { message } from 'constants/message'
 import Loading from 'components/Loading/Loading'
+import storageUser from 'constants/storageUser'
 
 function AboutGuest(props) {
   const classes = useStyles()
@@ -49,6 +50,7 @@ function AboutGuest(props) {
   const [isShowNewPassword, setIsShowNewPassword] = useState(false)
   const [isShowRepeatPassword, setIsShowRepeatPassword] = useState(false)
   const [isChangePassword, setIsChangePassword] = useState(false)
+  const username = localStorage.getItem(storageUser.USERNAME)
   const history = useHistory()
   const handleChangePhone = (event) => setPhone(event.target.value)
   const [isChangePhone, setIsChangePhone] = useState(false)
@@ -75,7 +77,7 @@ function AboutGuest(props) {
           message: message.CHANGE_PHONE_SUCCESS,
         })
       )
-      dispatch(getProfile())
+      dispatch(getProfile(username))
       setIsChangePhone(false)
     }
   }, [userStatus])

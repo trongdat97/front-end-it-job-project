@@ -75,7 +75,7 @@ function Contact(props) {
                 marginTop: 160,
               }}
             >
-              Created by JMG Group
+              Job System
             </Box>
           </Typography>
           <Typography component="div">
@@ -87,7 +87,7 @@ function Contact(props) {
                 marginLeft: 30,
               }}
             >
-              2021
+              2022
             </Box>
           </Typography>
         </Grid>

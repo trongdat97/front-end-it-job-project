@@ -41,6 +41,9 @@ function getAllJob(data) {
     },
   })
 }
+function getJobByUsername(data) {
+  return axiosClient.get(URL.getJobByUsername + '/' + data)
+}
 
 // function getJobDetail1(data) {
 //   return axiosClient.get(URL.getJobDetail1, {
@@ -49,6 +52,9 @@ function getAllJob(data) {
 //     },
 //   })
 // }
+function getCvByUsername(data) {
+  return axiosClient.get(URL.getCvByUsername + '/' + data)
+}
 
 function editJobByJobId(id, data) {
   return axiosClient.patch(URL.addJob + `/${id}`, data)
@@ -91,7 +97,14 @@ function getAllCv(data) {
     },
   })
 }
+function postCv(data) {
+  return axiosUpload.post(URL.postCv, data)
+}
+
 export default {
+  postCv,
+  getCvByUsername,
+  getJobByUsername,
   login,
   signup,
   uploadFile,

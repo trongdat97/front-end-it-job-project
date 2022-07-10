@@ -8,11 +8,15 @@ function login(data) {
   return axiosClient.post(URL.loginUrl, data)
 }
 
-function getProfile() {
+function getProfile(dt) {
   // return Promise.resolve({
   //   data: [],
   // })
-  return axiosClient.get(URL.getProfile)
+  if (dt == undefined) {
+    console.log('wtf')
+  }
+  console.log(dt)
+  return axiosClient.get(URL.getProfile + '/' + dt)
 }
 
 function getAllUser(data) {
@@ -131,6 +135,10 @@ function getAllJobs(data) {
     },
   })
 }
+
+// function getJobByUserame(data) {
+//   return axiosClient.get(URL.getJobByUserName + '/' + data)
+// }
 
 function getListJob(data) {
   return axiosClient.get(URL.getListJob, {

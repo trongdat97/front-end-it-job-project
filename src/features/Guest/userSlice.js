@@ -48,6 +48,17 @@ export const getJobByUserId = createAsyncThunk(
     }
   }
 )
+export const getCv = createAsyncThunk(
+  'user/getjobbyuserid',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await userApi.getJobByUserId(payload)
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
 
 export const getAllJob = createAsyncThunk(
   'user/getAllJob',
@@ -56,6 +67,19 @@ export const getAllJob = createAsyncThunk(
       const response = await userApi.getAllJob(payload)
       console.log(response)
       return response.data
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
+
+export const getCvByUsername = createAsyncThunk(
+  'user/getCvByUsername',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await userApi.getCvByUsername(payload)
+      return response.data
+      console.log(response.data)
     } catch (error) {
       return rejectWithValue(error.response.data)
     }
@@ -171,9 +195,21 @@ export const getAllCv = createAsyncThunk(
     }
   }
 )
+export const postCv = createAsyncThunk(
+  'user/postCv',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await userApi.postCv(payload)
+      console.log('asdasd')
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
 
 const userSlice = createSlice({
-  name: 'user',
+  name: 'guest',
   initialState: {
     status: '',
     file: '',
@@ -183,6 +219,7 @@ const userSlice = createSlice({
     tagList: [],
     candidateList: [],
     listCv: [],
+    cvListByUsername: [],
   },
   reducers: {
     clearState: (state) => {
@@ -209,6 +246,16 @@ const userSlice = createSlice({
       state.status = 'uploadFile.rejected'
       // state.errorMessage = payload.message
     },
+    [postCv.pending]: (state) => {
+      state.status = 'postCv.pending'
+    },
+    [postCv.fulfilled]: (state, { payload }) => {
+      state.status = 'postCv.fulfilled'
+    },
+    [postCv.rejected]: (state, { payload }) => {
+      state.status = 'postCv.rejected'
+      // state.errorMessage = payload.message
+    },
     [getAllCv.pending]: (state) => {
       state.status = 'getAllCv.pending'
     },
@@ -229,6 +276,17 @@ const userSlice = createSlice({
     },
     [getAllJob.rejected]: (state, { payload }) => {
       state.status = 'getAllJob.rejected'
+      // state.errorMessage = payload.message
+    },
+    [getCvByUsername.pending]: (state) => {
+      state.status = 'getCvByUsername.pending'
+    },
+    [getCvByUsername.fulfilled]: (state, { payload }) => {
+      state.status = 'getCvByUsername.fulfilled'
+      state.cvListByUsername = payload
+    },
+    [getCvByUsername.rejected]: (state, { payload }) => {
+      state.status = 'getCvByUsername.rejected'
       // state.errorMessage = payload.message
     },
     [addJob.pending]: (state) => {

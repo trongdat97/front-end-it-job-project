@@ -320,34 +320,6 @@ function JobPost(props) {
             </Box>
           </Typography>
         </StyledMenuItem>
-        <StyledMenuItem onClick={() => handleEdit(currentOne)}>
-          <ListItemIcon>
-            <FiEdit2 fontSize={15} />
-          </ListItemIcon>
-          <Typography component="div">
-            <Box
-              fontSize={15}
-              fontWeight={500}
-              style={{ color: '#5e5873', marginLeft: -16 }}
-            >
-              Edit
-            </Box>
-          </Typography>
-        </StyledMenuItem>
-        <StyledMenuItem onClick={() => handleDelete(currentOne)}>
-          <ListItemIcon>
-            <FiTrash fontSize={15} />
-          </ListItemIcon>
-          <Typography component="div">
-            <Box
-              fontSize={15}
-              fontWeight={500}
-              style={{ color: '#5e5873', marginLeft: -16 }}
-            >
-              Delete
-            </Box>
-          </Typography>
-        </StyledMenuItem>
         <StyledMenuItem onClick={() => handleViewCandidate(currentOne)}>
           <ListItemIcon>
             <MdPeople fontSize={15} />
@@ -358,7 +330,7 @@ function JobPost(props) {
               fontWeight={500}
               style={{ color: '#5e5873', marginLeft: -16 }}
             >
-              Candidates
+              Apply
             </Box>
           </Typography>
         </StyledMenuItem>

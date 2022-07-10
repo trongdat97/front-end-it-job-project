@@ -35,7 +35,7 @@ function Download(props) {
           >
             You are an applicant and you want to
             <br />
-            find a suitable job. Please download app mobile Job Search System for
+            find a suitable job. Please download app mobile Job Search System
             applicant and join with us.
           </Box>
         </Typography>
