@@ -104,6 +104,7 @@ function CvForm() {
       userId: 1,
       jobId: 'baec',
       username: username,
+      cvname: name,
     }
     formData.append('file', event.target.files[0])
     formData.append('model', JSON.stringify(modelData))

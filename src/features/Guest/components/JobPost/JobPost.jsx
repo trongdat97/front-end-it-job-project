@@ -165,7 +165,7 @@ function JobPost(props) {
       <Grid className={classes.top}>
         <Typography component="div">
           <Box fontSize={18} fontWeight={700} style={{ color: '#5e5873' }}>
-            Your posts
+            Search
           </Box>
         </Typography>
       </Grid>

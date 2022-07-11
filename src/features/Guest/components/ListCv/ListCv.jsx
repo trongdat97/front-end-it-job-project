@@ -174,7 +174,7 @@ function ListJob(props) {
         temp.push(
           createData(
             temp.length + 1,
-            item?.name,
+            item?.cvname,
             item?.companyName,
             moment(item?.createdat).format('hh:mm A - DD/MM/YYYY'),
             moment(item?.updatedat).format('hh:mm A - DD/MM/YYYY'),

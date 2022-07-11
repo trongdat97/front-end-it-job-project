@@ -51,7 +51,11 @@ function App() {
         <Route path="/signup" exact component={UserSignup} />
         <Route path="/" exact component={NavBar} />
         <PrivateRouteUser path="/home" exact component={ContributorScreen} />
-        <PrivateRouteUser path="/guest/home" exact component={GuestScreen} />
+        <PrivateRouteUser
+          path="/candidate/home"
+          exact
+          component={GuestScreen}
+        />
       </Switch>
     </div>
   )
