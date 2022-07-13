@@ -27,7 +27,6 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   deleteJobByJobId,
-  getCandidate,
   getJobByUserId,
   userSelector,
   getAllJob,
@@ -58,6 +57,7 @@ import { showCandidateForm } from '../CandidateForm/candidateFormSlice'
 import CandidateForm from '../CandidateForm/CandidateForm'
 import Loading from 'components/Loading/Loading'
 import storageUser from 'constants/storageUser'
+import { jobFormSelector } from '../JobForm/jobFormSlice'
 const StyledMenuItem = withStyles({
   root: {
     '&:hover': {
@@ -89,7 +89,7 @@ function JobPost(props) {
   let jobList1 = []
   jobList1 = jobList.slice().reverse()
   console.log(jobList1)
-
+  const { currentJob } = useSelector(jobFormSelector)
   useEffect(() => {
     dispatch(getAllJob(tokenUser))
   }, [])
@@ -118,7 +118,6 @@ function JobPost(props) {
   }
   const handleViewCandidate = (item) => {
     dispatch(setCurrent(item))
-    dispatch(getCandidate(item?.id))
     dispatch(showCandidateForm({ onSubmit: onSubmit }))
   }
   // useEffect(() => {
@@ -169,6 +168,7 @@ function JobPost(props) {
           </Box>
         </Typography>
       </Grid>
+
       {status === 'getJobByUserId.pending' ? (
         <Grid
           container
@@ -196,6 +196,20 @@ function JobPost(props) {
                 fontWeight: 400,
               }}
             />
+            {moment(item?.timeExpired).isBefore(moment()) && (
+              <Chip
+                size="small"
+                label="Expired"
+                style={{
+                  fontSize: 10,
+                  backgroundColor: '#f44336',
+                  color: '#fff',
+                  fontWeight: 400,
+                  marginLeft: 16,
+                }}
+              />
+            )}
+
             <div>
               <IconButton
                 style={{ position: 'absolute', top: 10, right: 10 }}
@@ -205,6 +219,7 @@ function JobPost(props) {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={(event) => {
                   handleClick(event, item)
+                  dispatch(setCurrent(item))
                 }}
               >
                 <MdMoreHoriz fontSize={24} />
@@ -269,7 +284,7 @@ function JobPost(props) {
                   fontWeight={500}
                   style={{ marginLeft: 8, color: '#5e5873' }}
                 >
-                  {`Posted: ${moment(item?.createdat).format('DD/MM/YYYY')}`}
+                  {`Posted: ${moment(item?.createAt).format('DD/MM/YYYY')}`}
                 </Box>
               </Typography>
               <Typography component="div">
@@ -278,7 +293,9 @@ function JobPost(props) {
                   fontWeight={500}
                   style={{ marginLeft: 8, color: '#5e5873' }}
                 >
-                  {`Deadline: ${moment(item?.deadline).format('DD/MM/YYYY')}`}
+                  {`Deadline: ${moment(item?.timeExpired).format(
+                    'DD/MM/YYYY'
+                  )}`}
                 </Box>
               </Typography>
             </Grid>
@@ -320,7 +337,16 @@ function JobPost(props) {
             </Box>
           </Typography>
         </StyledMenuItem>
-        <StyledMenuItem onClick={() => handleViewCandidate(currentOne)}>
+        <StyledMenuItem
+          onClick={() => {
+            handleViewCandidate(currentOne)
+          }}
+          className={
+            moment(currentJob?.timeExpired).isBefore(moment())
+              ? classes.disable
+              : null
+          }
+        >
           <ListItemIcon>
             <MdPeople fontSize={15} />
           </ListItemIcon>
@@ -362,4 +388,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
     marginTop: 16,
   },
+  disable: {
+    cursor: 'not-allowed',
+    color: 'grey',
+    pointerEvents: 'none',
+  },
+  // disable: {
+  //   '&:hover': {
+  //     backgroundColor: 'transparent',
+  //   },
+  // },
 }))

@@ -18,7 +18,10 @@ import NavBar from 'features/User/components/NavBar/NavBar'
 import ContributorScreen from 'features/User/screens/ContributorScreen'
 import PermissionScreen from 'features/Admin/screens/PermissionScreen'
 import GuestScreen from 'features/Guest/screens/GuestScreen'
+import { useSelector } from 'react-redux'
+import { authSelector } from 'features/Auth/authSlice'
 function App() {
+  const { roles } = useSelector(authSelector)
   return (
     <div>
       <Header />
@@ -50,7 +53,13 @@ function App() {
         <Route path="/login" exact component={UserLogin} />
         <Route path="/signup" exact component={UserSignup} />
         <Route path="/" exact component={NavBar} />
-        <PrivateRouteUser path="/home" exact component={ContributorScreen} />
+
+        <PrivateRouteUser
+          path="/contributor/home"
+          exact
+          component={ContributorScreen}
+        />
+
         <PrivateRouteUser
           path="/candidate/home"
           exact

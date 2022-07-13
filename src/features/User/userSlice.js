@@ -105,7 +105,9 @@ export const getCandidate = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await userApi.getCandidate(payload)
-      return response.data
+      if (response.code == 0) {
+        return response.data
+      } else return []
     } catch (error) {
       return rejectWithValue(error.response.data)
     }
@@ -311,7 +313,7 @@ const userSlice = createSlice({
     },
     [getCandidate.fulfilled]: (state, { payload }) => {
       state.status = 'getCandidate.fulfilled'
-      state.candidateList = payload[0].appliedBy
+      state.candidateList = payload
     },
     [getCandidate.rejected]: (state, { payload }) => {
       state.status = 'getCandidate.rejected'

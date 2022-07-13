@@ -404,7 +404,7 @@ const adminSlice = createSlice({
     },
     [getRequestUser.fulfilled]: (state, { payload }) => {
       state.status = 'getRequestUser.fulfilled'
-      state.requestUser = payload.data
+      state.requestUser = payload
     },
     [getRequestUser.rejected]: (state, { payload }) => {
       state.status = 'getRequestUser.rejected'

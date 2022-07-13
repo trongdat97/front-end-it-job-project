@@ -115,7 +115,7 @@ export default function Header() {
   const dispatch = useDispatch()
   const { isAuth } = useSelector(headerSelector)
   const { info } = useSelector(authSelector)
-  const username = localStorage.getItem(storageUser.USERNAME)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
 
   useEffect(() => {
     dispatch(getAuth())
@@ -451,7 +451,7 @@ export default function Header() {
                   fontWeight={500}
                   style={{ marginLeft: 10, color: '#7367f0' }}
                 >
-                  Job Search System
+                  Dashboard
                 </Box>
               </Typography>
             </Grid>

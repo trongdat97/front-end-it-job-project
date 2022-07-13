@@ -108,37 +108,37 @@ function UserRequest(props) {
     if (status === 'getRequestUser.fulfilled') {
       let temp = []
       requestUser.map((item) => {
-        if (item?.role?.role !== 'ADMIN')
-          temp.push(
-            createData(
-              temp.length + 1,
-              item?.profile?.name,
-              item?.email,
-              item?.profile?.phone,
-              moment(item?.createdat).format('hh:mm A - DD/MM/YYYY'),
-              <Button
-                className={classes.button}
-                startIcon={
-                  <CheckCircleRounded
-                    fontSize="medium"
-                    style={{ color: 'white' }}
-                  />
-                }
-                onClick={() => {
-                  dispatch(
-                    showDialog({
-                      onSubmit: () => {
-                        dispatch(identifyUserById(item?.id))
-                      },
-                      message: message.CONFIRM_ACCEPT_USER,
-                    })
-                  )
-                }}
-              >
-                Accept
-              </Button>
-            )
+        // if (item?.role?.role !== 'ROLE_ADMIN')
+        temp.push(
+          createData(
+            temp.length + 1,
+            item?.name,
+            item?.email,
+            item?.phone,
+            moment(item?.createdat).format('hh:mm A - DD/MM/YYYY'),
+            <Button
+              className={classes.button}
+              startIcon={
+                <CheckCircleRounded
+                  fontSize="medium"
+                  style={{ color: 'white' }}
+                />
+              }
+              onClick={() => {
+                dispatch(
+                  showDialog({
+                    onSubmit: () => {
+                      dispatch(identifyUserById(item?.id))
+                    },
+                    message: message.CONFIRM_ACCEPT_USER,
+                  })
+                )
+              }}
+            >
+              Accept
+            </Button>
           )
+        )
       })
       setRows(temp)
     }

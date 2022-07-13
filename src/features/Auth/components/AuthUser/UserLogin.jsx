@@ -35,7 +35,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi'
 function UserLogin() {
   const classes = useStyles()
 
-  const { status, errorMessage } = useSelector(authSelector)
+  const { status, roles, errorMessage } = useSelector(authSelector)
 
   const dispatch = useDispatch()
 
@@ -70,7 +70,8 @@ function UserLogin() {
     }
     if (status === 'userLogin.fulfilled') {
       dispatch(clearState())
-      history.push('/home')
+      if (roles[0]?.name == 'ROLE_PM') history.push('/contributor/home')
+      else history.push('/candidate/home')
     }
   }, [status])
 

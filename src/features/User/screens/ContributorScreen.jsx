@@ -132,7 +132,7 @@ function ContributorScreen(props) {
   const { info, status } = useSelector(authSelector)
   const history = useHistory()
   const [value, setValue] = React.useState(0)
-  const username = localStorage.getItem(storageUser.USERNAME)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
@@ -275,7 +275,7 @@ function ContributorScreen(props) {
                         fontWeight={600}
                         style={{ color: '#020202' }}
                       >
-                        {info?.profile?.name}
+                        {info?.name}
                       </Box>
                     </Typography>
                     <Typography component="div">
@@ -305,7 +305,11 @@ function ContributorScreen(props) {
                       horizontal: 'right',
                     }}
                   >
-                    <Avatar src={info?.profile?.profileUrl} />
+                    <Avatar
+                      src={
+                        'https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png'
+                      }
+                    />
                   </Badge>
                 </IconButton>
                 <Menu
@@ -385,7 +389,9 @@ function ContributorScreen(props) {
           }}
         >
           <CardMedia
-            image={info?.profile?.profileUrl}
+            image={
+              'https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png'
+            }
             style={{
               width: 112,
               height: 112,
@@ -511,7 +517,7 @@ function ContributorScreen(props) {
                 fontWeight={400}
                 style={{ color: '#5e5873', marginTop: 6 }}
               >
-                {info?.profile?.city}
+                {info?.city}
               </Box>
             </Typography>
           </Grid>
@@ -543,12 +549,8 @@ function ContributorScreen(props) {
                 fontWeight={400}
                 style={{ color: '#5e5873', marginTop: 6 }}
               >
-                <Link
-                  href={info?.profile?.pageURL}
-                  component="a"
-                  target="_blank"
-                >
-                  {info?.profile?.pageURL}
+                <Link href={info?.website} component="a" target="_blank">
+                  {info?.website}
                 </Link>
               </Box>
             </Typography>

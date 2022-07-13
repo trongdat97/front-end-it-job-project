@@ -179,14 +179,10 @@ function ListJob(props) {
             moment(item?.createdat).format('hh:mm A - DD/MM/YYYY'),
             moment(item?.updatedat).format('hh:mm A - DD/MM/YYYY'),
             <Grid key={item?.id + 'grid'}>
-              <IconButton
-                title="View"
-                onClick={() => {
-                  dispatch(getJobById(item?.id))
-                  dispatch(showInfo({}))
-                }}
-              >
-                <FaEye fontSize={20} />
+              <IconButton title="View">
+                <a href={item?.url} target="_blank">
+                  <FaEye fontSize={20} />
+                </a>
               </IconButton>
               <IconButton
                 title="Delete"

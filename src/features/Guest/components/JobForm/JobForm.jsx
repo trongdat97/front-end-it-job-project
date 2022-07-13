@@ -113,10 +113,10 @@ function JobForm() {
     setDeadline(date)
     setIsOpenDatePicker(false)
   }
-  useEffect(() => {
-    dispatch(getAllCity())
-    dispatch(getAllTag())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getAllCity())
+  //   dispatch(getAllTag())
+  // }, [])
   const [city, setCity] = useState('')
   const handleChangeCity = (event) => setCity(event.target.value)
   const [image, setImage] = useState('')

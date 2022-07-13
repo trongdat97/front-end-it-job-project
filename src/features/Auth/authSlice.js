@@ -92,7 +92,7 @@ const authSlice = createSlice({
     email: '',
     id: '',
     info: {},
-    roleId: null,
+    roles: null,
     status: '',
     errorMessage: '',
     cityList: [],
@@ -139,9 +139,7 @@ const authSlice = createSlice({
     },
     [userLogin.fulfilled]: (state, { payload }) => {
       state.status = 'userLogin.fulfilled'
-      state.email = payload.email
-      state.id = payload.id
-      state.roleId = payload.roleId
+      state.roles = payload.roles
     },
     [userLogin.rejected]: (state, { payload }) => {
       state.status = 'userLogin.rejected'

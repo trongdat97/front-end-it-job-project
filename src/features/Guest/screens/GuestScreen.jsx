@@ -125,7 +125,7 @@ function GuestScreen(props) {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const classes = useStyles()
   const dispatch = useDispatch()
-  const username = localStorage.getItem(storageUser.USERNAME)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
   const { info, status } = useSelector(authSelector)
   const history = useHistory()
   const [value, setValue] = React.useState(0)
@@ -271,7 +271,7 @@ function GuestScreen(props) {
                         fontWeight={600}
                         style={{ color: '#020202' }}
                       >
-                        {info?.profile?.name}
+                        {info?.name}
                       </Box>
                     </Typography>
                     <Typography component="div">
@@ -301,7 +301,11 @@ function GuestScreen(props) {
                       horizontal: 'right',
                     }}
                   >
-                    <Avatar src={info?.profile?.profileUrl} />
+                    <Avatar
+                      src={
+                        'https://pickaface.net/gallery/avatar/43747121_160902_1918_9l357y.png'
+                      }
+                    />
                   </Badge>
                 </IconButton>
                 <Menu
@@ -381,7 +385,7 @@ function GuestScreen(props) {
           }}
         >
           <CardMedia
-            image={info?.profile?.profileUrl}
+            image="https://pickaface.net/gallery/avatar/43747121_160902_1918_9l357y.png"
             style={{
               width: 112,
               height: 112,
@@ -517,7 +521,7 @@ function GuestScreen(props) {
                 fontWeight={400}
                 style={{ color: '#5e5873', marginTop: 6 }}
               >
-                {info?.profile?.city}
+                {info?.city}
               </Box>
             </Typography>
           </Grid>
@@ -540,7 +544,7 @@ function GuestScreen(props) {
           <Grid style={{ marginTop: 20 }}>
             <Typography component="div">
               <Box fontSize={15} fontWeight={600} style={{ color: '#5e5873' }}>
-                Website
+                {/* Website */}
               </Box>
             </Typography>
             <Typography component="div">
@@ -549,12 +553,8 @@ function GuestScreen(props) {
                 fontWeight={400}
                 style={{ color: '#5e5873', marginTop: 6 }}
               >
-                <Link
-                  href={info?.profile?.pageURL}
-                  component="a"
-                  target="_blank"
-                >
-                  {info?.profile?.pageURL}
+                <Link href={info?.website} component="a" target="_blank">
+                  {/* {info?.website} */}
                 </Link>
               </Box>
             </Typography>

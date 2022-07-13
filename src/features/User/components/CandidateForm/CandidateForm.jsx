@@ -69,6 +69,7 @@ function CandidateForm() {
   const { onSubmit } = useSelector(candidateFormSelector)
   const { candidateList, status } = useSelector(userSelector)
   const { currentJob } = useSelector(jobFormSelector)
+  const [showInfo, setShowInfo] = useState([])
   useEffect(() => {
     if (status === 'acceptJob.fulfilled' || status === 'denyJob.fulfilled') {
       dispatch(getCandidate(currentJob?.id))
@@ -112,7 +113,7 @@ function CandidateForm() {
           <Box sx={{ width: '100%' }}>
             <Typography component="div">
               <Box fontSize={16} fontWeight={600}>
-                {'Job: ' + currentJob?.name}
+                {'Job: ' + currentJob?.jobName}
               </Box>
             </Typography>
             <Typography component="div">
@@ -121,91 +122,184 @@ function CandidateForm() {
               </Box>
             </Typography>
             <Grid style={{ marginTop: 24 }}>
-              {candidateList?.map((item) => (
-                <Grid
-                  container
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: 8,
-                    borderRadius: 4,
-                    backgroundColor: item?.status
-                      ? '#a2cf6e'
-                      : item?.isDenied
-                      ? '#f6685e'
-                      : '#fff',
-                  }}
-                >
-                  <Grid item style={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar src={item?.user?.profile?.profileUrl} />
-                    <Grid>
-                      <Typography component="div" style={{ marginLeft: 16 }}>
-                        <Box fontSize={14} fontWeight={600}>
-                          {item?.user?.profile?.name}
-                        </Box>
-                      </Typography>
-                      <Typography component="div" style={{ marginLeft: 16 }}>
-                        <Box fontSize={13} fontWeight={400}>
-                          {item?.user?.email +
-                            ' - ' +
-                            item?.user?.profile?.phone}
-                        </Box>
-                      </Typography>
+              {[...candidateList]
+                ?.sort((l, r) => (l.match < r.match ? 1 : -1))
+                ?.map((item) => (
+                  <>
+                    <Grid
+                      container
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: 8,
+                        borderRadius: 4,
+                        backgroundColor: item?.status
+                          ? '#a2cf6e'
+                          : item?.isDenied
+                          ? '#f6685e'
+                          : '#fff',
+                      }}
+                    >
+                      <Grid
+                        onClick={() => {
+                          if (showInfo.includes(item.id))
+                            setShowInfo(showInfo.filter((i) => i != item.id))
+                          else setShowInfo([...showInfo, item.id])
+                        }}
+                        item
+                        style={{ display: 'flex', alignItems: 'center' }}
+                      >
+                        <Avatar
+                          src={
+                            'https://cdn1.vectorstock.com/i/1000x1000/23/70/man-avatar-icon-flat-vector-19152370.jpg'
+                          }
+                        />
+                        <Grid>
+                          <Typography
+                            component="div"
+                            style={{
+                              marginLeft: 16,
+                              color: '#ee0033',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <Box fontSize={14} fontWeight={600}>
+                              {item?.name?.substr(0, 25)}
+                            </Box>
+                          </Typography>
+                          <Typography
+                            component="div"
+                            style={{ marginLeft: 16 }}
+                          >
+                            <Box fontSize={13} fontWeight={400}>
+                              {item?.username + ' - ' + item?.cvname}
+                            </Box>
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Grid>
+                        <Button
+                          style={{
+                            backgroundColor: '#2196f3',
+                            color: '#fff',
+                            height: 30,
+                          }}
+                          target="_blank"
+                          component="a"
+                          href={item?.url}
+                        >
+                          <FaEye fontSize={13} />
+                        </Button>
+                        <Button
+                          style={{
+                            backgroundColor: '#4caf50',
+                            color: '#fff',
+                            height: 30,
+                            marginLeft: 8,
+                          }}
+                          onClick={() =>
+                            dispatch(
+                              acceptJob({
+                                id: currentJob?.id,
+                                data: { userId: item?.user?.id },
+                              })
+                            )
+                          }
+                        >
+                          <BiCheck fontSize={13} />
+                        </Button>
+                        <Button
+                          style={{
+                            backgroundColor: '#f44336',
+                            color: '#fff',
+                            height: 30,
+                            marginLeft: 8,
+                          }}
+                          onClick={() => {
+                            dispatch(
+                              denyJob({
+                                cvId: item?.cvId,
+                                jobId: currentJob?.id,
+                              })
+                            )
+                          }}
+                        >
+                          <MdCancel fontSize={13} />
+                        </Button>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid>
-                    <Button
-                      style={{
-                        backgroundColor: '#2196f3',
-                        color: '#fff',
-                        height: 30,
-                      }}
-                      target="_blank"
-                      component="a"
-                      href={item?.cvURL}
-                    >
-                      <FaEye fontSize={13} />
-                    </Button>
-                    <Button
-                      style={{
-                        backgroundColor: '#4caf50',
-                        color: '#fff',
-                        height: 30,
-                        marginLeft: 8,
-                      }}
-                      onClick={() =>
-                        dispatch(
-                          acceptJob({
-                            id: currentJob?.id,
-                            data: { userId: item?.user?.id },
-                          })
-                        )
-                      }
-                    >
-                      <BiCheck fontSize={13} />
-                    </Button>
-                    <Button
-                      style={{
-                        backgroundColor: '#f44336',
-                        color: '#fff',
-                        height: 30,
-                        marginLeft: 8,
-                      }}
-                      onClick={() => {
-                        dispatch(
-                          denyJob({
-                            cvId: item?.cvId,
-                            jobId: currentJob?.id,
-                          })
-                        )
-                      }}
-                    >
-                      <MdCancel fontSize={13} />
-                    </Button>
-                  </Grid>
-                </Grid>
-              ))}
+                    {showInfo.includes(item.id) && (
+                      <Grid
+                        item
+                        style={{ display: 'flex', alignItems: 'center' }}
+                      >
+                        <table
+                          style={{
+                            borderCollapse: 'collapse',
+                            marginTop: 12,
+                            marginBottom: 12,
+                            borderRadius: 6,
+                          }}
+                        >
+                          <tr>
+                            <td
+                              style={{
+                                border: '1px solid #ddd',
+                                width: '15%',
+                                padding: 4,
+                              }}
+                            >
+                              Match
+                            </td>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                border: '1px solid #ddd',
+                                padding: 4,
+                              }}
+                            >
+                              {item?.match}
+                            </th>
+                          </tr>
+                          <tr>
+                            <td
+                              style={{ border: '1px solid #ddd', padding: 4 }}
+                            >
+                              CV Skills
+                            </td>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                padding: 4,
+                                border: '1px solid #ddd',
+                              }}
+                            >
+                              {item?.cvskill}
+                            </th>
+                          </tr>
+                          <tr>
+                            <td
+                              style={{ border: '1px solid #ddd', padding: 4 }}
+                            >
+                              JD Skills
+                            </td>
+                            <th
+                              style={{
+                                textAlign: 'left',
+                                border: '1px solid #ddd',
+
+                                padding: 4,
+                              }}
+                            >
+                              {item?.jdskill}
+                            </th>
+                          </tr>
+                        </table>
+                      </Grid>
+                    )}
+                  </>
+                ))}
             </Grid>
           </Box>
         </DialogContent>

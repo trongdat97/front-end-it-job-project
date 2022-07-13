@@ -21,7 +21,12 @@ import {
 import { CloseOutlined } from '@material-ui/icons'
 import React, { useState } from 'react'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
-import { RiCloseCircleFill, RiClosedCaptioningFill } from 'react-icons/ri'
+import storageUser from 'constants/storageUser'
+import {
+  RiCloseCircleFill,
+  RiClosedCaptioningFill,
+  RiDeleteBin5Line,
+} from 'react-icons/ri'
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeForm, candidateFormSelector } from './candidateFormSlice'
@@ -44,12 +49,12 @@ import {
   addJob,
   denyJob,
   editJobByJobId,
-  getAllTag,
-  getCandidate,
   setFile,
   uploadFile,
   userSelector,
-} from 'features/User/userSlice'
+  applyCv,
+  getCvByUsername,
+} from 'features/Guest/userSlice'
 import { EditorState, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -67,13 +72,22 @@ function CandidateForm() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const { onSubmit } = useSelector(candidateFormSelector)
-  const { candidateList, status } = useSelector(userSelector)
+  const { candidateList, status, cvListByUsername } = useSelector(userSelector)
   const { currentJob } = useSelector(jobFormSelector)
-  useEffect(() => {
-    if (status === 'acceptJob.fulfilled' || status === 'denyJob.fulfilled') {
-      dispatch(getCandidate(currentJob?.id))
-    }
-  }, [status])
+  const [choseCv, setChoseCv] = useState(null)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
+
+  const handleApplyCv = () => {
+    dispatch(
+      applyCv({
+        username: sessionStorage.getItem('username'),
+        idJob: currentJob?.id,
+        idCv: choseCv?.id,
+      })
+    )
+    dispatch(getCvByUsername(username))
+    dispatch(closeForm())
+  }
   return (
     <div>
       <Dialog
@@ -93,6 +107,7 @@ function CandidateForm() {
             padding: 0,
             borderRadius: 17,
             height: '60vh',
+            paddingBottom: 96,
           },
         }}
         TransitionComponent={SlideTransition}
@@ -112,100 +127,82 @@ function CandidateForm() {
           <Box sx={{ width: '100%' }}>
             <Typography component="div">
               <Box fontSize={16} fontWeight={600}>
-                {'Job: ' + currentJob?.name}
+                {'Job: ' + currentJob?.jobName}
               </Box>
             </Typography>
             <Typography component="div">
               <Box fontSize={14} fontWeight={400}>
-                {'Total: ' + candidateList?.length}
+                {'Total: ' + cvListByUsername?.length}
               </Box>
             </Typography>
             <Grid style={{ marginTop: 24 }}>
-              {candidateList?.map((item) => (
+              {cvListByUsername?.map((item, index) => (
                 <Grid
-                  container
+                  key={item?.id + 'grid'}
+                  className={
+                    (classes.menu, choseCv == item ? classes.active : null)
+                  }
+                  onClick={() => setChoseCv(item)}
                   style={{
                     display: 'flex',
+                    flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: 8,
-                    borderRadius: 4,
-                    backgroundColor: item?.status
-                      ? '#a2cf6e'
-                      : item?.isDenied
-                      ? '#f6685e'
-                      : '#fff',
+                    backgroundColor: 'rgba(231,231,231,0.9)',
+                    padding: 3,
+                    paddingLeft: 10,
+                    borderRadius: 6,
+                    marginTop: 12,
+                    cursor: 'pointer',
+                    fontWeight: 600,
                   }}
                 >
-                  <Grid item style={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar src={item?.user?.profile?.profileUrl} />
-                    <Grid>
-                      <Typography component="div" style={{ marginLeft: 16 }}>
-                        <Box fontSize={14} fontWeight={600}>
-                          {item?.user?.profile?.name}
-                        </Box>
-                      </Typography>
-                      <Typography component="div" style={{ marginLeft: 16 }}>
-                        <Box fontSize={13} fontWeight={400}>
-                          {item?.user?.email +
-                            ' - ' +
-                            item?.user?.profile?.phone}
-                        </Box>
-                      </Typography>
-                    </Grid>
+                  <Grid
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                    }}
+                  >
+                    <Grid style={{ marginRight: 8 }}>{index + 1}</Grid>
+                    <Grid>{item?.cvname}</Grid>
                   </Grid>
-                  <Grid>
-                    <Button
-                      style={{
-                        backgroundColor: '#2196f3',
-                        color: '#fff',
-                        height: 30,
-                      }}
-                      target="_blank"
-                      component="a"
-                      href={item?.cvURL}
-                    >
-                      <FaEye fontSize={13} />
-                    </Button>
-                    <Button
-                      style={{
-                        backgroundColor: '#4caf50',
-                        color: '#fff',
-                        height: 30,
-                        marginLeft: 8,
-                      }}
-                      onClick={() =>
-                        dispatch(
-                          acceptJob({
-                            id: currentJob?.id,
-                            data: { userId: item?.user?.id },
-                          })
-                        )
-                      }
-                    >
-                      <BiCheck fontSize={13} />
-                    </Button>
-                    <Button
-                      style={{
-                        backgroundColor: '#f44336',
-                        color: '#fff',
-                        height: 30,
-                        marginLeft: 8,
-                      }}
-                      onClick={() => {
-                        dispatch(
-                          denyJob({
-                            cvId: item?.cvId,
-                            jobId: currentJob?.id,
-                          })
-                        )
-                      }}
-                    >
-                      <MdCancel fontSize={13} />
-                    </Button>
+                  <Grid
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'flex-end',
+                    }}
+                  >
+                    <IconButton title="View">
+                      <a href={item?.url} target="_blank">
+                        <FaEye fontSize={20} />
+                      </a>
+                    </IconButton>
                   </Grid>
                 </Grid>
               ))}
+            </Grid>
+            <Grid
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                position: 'absolute',
+                bottom: 0,
+                width: '90%',
+              }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={() => handleApplyCv()}
+              >
+                Apply
+              </Button>
             </Grid>
           </Box>
         </DialogContent>
@@ -214,6 +211,14 @@ function CandidateForm() {
   )
 }
 const useStyles = makeStyles((theme) => ({
+  menu: {
+    '&:hover': {
+      backgroundColor: 'rgba(196,196,196,0.8) !important',
+    },
+  },
+  active: {
+    backgroundColor: 'rgba(196,196,196,0.8) !important',
+  },
   root: {
     backgroundImage:
       'url(https://images6.alphacoders.com/987/thumb-1920-987255.png)',

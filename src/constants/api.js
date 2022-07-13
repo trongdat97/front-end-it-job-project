@@ -4,9 +4,9 @@ const signupUrl = '/auth/signup'
 
 const getProfile = '/auth/usersv/get'
 
-const getAllUserUrl = '/auth/usersv/getall'
+const getAllUserUrl = '/auth/usersv/undel'
 
-const getRequestUser = '/users/unauthorized'
+const getRequestUser = '/auth/usersv/del'
 
 const getDeleteUser = '/users/inactive'
 
@@ -36,7 +36,7 @@ const addJob = '/jobs/jobs'
 
 const getAllTag = '/auth/test/user'
 
-const getCandidate = '/jobs/applied'
+const getCandidate = '/user/user/cvinfo'
 
 const acceptJob = '/jobs/accept'
 
@@ -70,8 +70,10 @@ const getJobByUsername = '/jobs/jobs/findjob'
 
 const postCv = '/cv/cv/2/upload'
 
+const applyCv = '/user/user/applyjob'
 export default {
   postCv,
+  applyCv,
   getCvByUsername,
   getJobByUsername,
   getListJob,

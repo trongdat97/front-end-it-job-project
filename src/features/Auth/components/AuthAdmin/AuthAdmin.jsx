@@ -55,7 +55,7 @@ function LoginForm() {
 
   const handleCheckBoxChange = () => setRemember(!remember)
 
-  const username = localStorage.getItem(storageUser.USERNAME)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
 
   const handleSubmit = () => {
     dispatch(adminLogin({ username: email, password, remember }))

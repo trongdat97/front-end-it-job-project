@@ -191,7 +191,7 @@ function RoleScreen(props) {
               className={classes.button}
               onClick={() => dispatch(showAddInfo({}))}
             >
-              Add Role
+              Set Role
             </Button>
           </Grid>
           <Paper

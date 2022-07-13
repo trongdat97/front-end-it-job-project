@@ -174,7 +174,7 @@ function TagsScreen(props) {
                 dispatch(setType('add'))
               }}
             >
-              Add Role
+              Set Role
             </Button>
           </Grid>
           <Paper

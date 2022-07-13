@@ -42,6 +42,7 @@ import {
   addJob,
   editJobByJobId,
   getAllTag,
+  getJobByUsername,
   setFile,
   uploadFile,
   userSelector,
@@ -111,15 +112,15 @@ function JobForm() {
   const handleChangeImg = (event) => setIntroImg(event.target.value)
   const handleChangeAddress = (event) => setAddress(event.target.value)
 
-  const username = localStorage.getItem(storageUser.USERNAME)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
   const handleChangeDeadline = (date) => {
     setDeadline(date)
     setIsOpenDatePicker(false)
   }
-  useEffect(() => {
-    dispatch(getAllCity())
-    dispatch(getAllTag())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getAllCity())
+  //   dispatch(getAllTag())
+  // }, [])
   const [city, setCity] = useState('')
   const handleChangeCity = (event) => setCity(event.target.value)
   const [image, setImage] = useState('')
@@ -146,7 +147,7 @@ function JobForm() {
           lowestWage: String(lowestWage),
           highestWage: String(highestWage),
           experience: String(experience),
-          deadline: moment(deadline).format('YYYY-MM-DD'),
+          deadline: deadline.format('YYYY-MM-DD'),
           city: String(city),
           fullAddress: address,
           //latitude,
@@ -185,6 +186,7 @@ function JobForm() {
     if (status === 'addJob.fulfilled') {
       dispatch(closeForm())
       dispatch(setType(''))
+      dispatch(getJobByUsername(username))
     }
     if (status === 'editJobByJobId.fulfilled') {
       dispatch(closeForm())
@@ -207,7 +209,7 @@ function JobForm() {
         //latitude,
         //longitude,
         companyName: 'viettel',
-        createAt: null,
+        createAt: moment().format('YYYY-MM-DD'),
         companyLogo: introImg,
         jobDetail: convertToHTML(editorStateDescription.getCurrentContent()),
         username: username,

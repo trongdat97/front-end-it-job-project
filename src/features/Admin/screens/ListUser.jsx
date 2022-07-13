@@ -57,8 +57,8 @@ const columns = [
   { id: 'name', label: 'NAME', minWidth: 200 },
   { id: 'email', label: 'EMAIL', minWidth: 200 },
   {
-    id: 'role',
-    label: 'ROLE',
+    id: 'phone',
+    label: 'PHONE',
     minWidth: 170,
     align: 'center',
   },
@@ -76,8 +76,8 @@ const columns = [
   },
 ]
 
-function createData(index, name, email, role, active, action) {
-  return { index, name, email, role, active, action }
+function createData(index, name, email, phone, active, action) {
+  return { index, name, email, phone, active, action }
 }
 
 function ListUser(props) {
@@ -143,9 +143,9 @@ function ListUser(props) {
           temp.push(
             createData(
               temp.length + 1,
-              item?.profile?.name,
+              item?.name,
               item?.email,
-              item?.role?.role,
+              item?.phone,
               item?.active ? (
                 <CheckCircleRounded
                   key={item?.id + 'check'}

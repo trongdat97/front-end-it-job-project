@@ -200,7 +200,18 @@ export const postCv = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       const response = await userApi.postCv(payload)
-      console.log('asdasd')
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
+
+export const applyCv = createAsyncThunk(
+  'user/applyCv',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await userApi.applyCv(payload)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data)
@@ -255,6 +266,15 @@ const userSlice = createSlice({
     [postCv.rejected]: (state, { payload }) => {
       state.status = 'postCv.rejected'
       // state.errorMessage = payload.message
+    },
+    [applyCv.pending]: (state) => {
+      state.status = 'applyCv.pending'
+    },
+    [applyCv.fulfilled]: (state, { payload }) => {
+      state.status = 'applyCv.fulfilled'
+    },
+    [applyCv.rejected]: (state, { payload }) => {
+      state.status = 'applyCv.rejected'
     },
     [getAllCv.pending]: (state) => {
       state.status = 'getAllCv.pending'

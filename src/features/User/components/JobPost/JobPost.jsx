@@ -78,7 +78,7 @@ function JobPost(props) {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
   const [currentOne, setCurrentOne] = React.useState({})
-  const username = localStorage.getItem(storageUser.USERNAME)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
   const handleClick = (event, item) => {
     setAnchorEl(event.currentTarget)
     setCurrentOne(item)
@@ -90,7 +90,9 @@ function JobPost(props) {
   const { info } = useSelector(authSelector)
   const { jobList, status } = useSelector(userSelector)
   let jobList1 = []
-  jobList1 = jobList.slice().reverse()
+  if (jobList1 != null) {
+    jobList1 = jobList?.slice().reverse()
+  }
   console.log(jobList1)
 
   useEffect(() => {
@@ -272,7 +274,7 @@ function JobPost(props) {
                   fontWeight={500}
                   style={{ marginLeft: 8, color: '#5e5873' }}
                 >
-                  {`Posted: ${moment(item?.createdat).format('DD/MM/YYYY')}`}
+                  {`Posted: ${moment(item?.createAt).format('DD/MM/YYYY')}`}
                 </Box>
               </Typography>
               <Typography component="div">
@@ -281,7 +283,9 @@ function JobPost(props) {
                   fontWeight={500}
                   style={{ marginLeft: 8, color: '#5e5873' }}
                 >
-                  {`Deadline: ${moment(item?.deadline).format('DD/MM/YYYY')}`}
+                  {`Deadline: ${moment(item?.timeExpired).format(
+                    'DD/MM/YYYY'
+                  )}`}
                 </Box>
               </Typography>
             </Grid>

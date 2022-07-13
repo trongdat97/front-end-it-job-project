@@ -57,7 +57,7 @@ import { uploadFile, userSelector, getAllTag, addJob } from '../userSlice'
 function SlideTransition(props) {
   return <Slide {...props} direction="up" timeout={200} />
 }
-const username = localStorage.getItem(storageUser.USERNAME)
+const username = sessionStorage.getItem(storageUser.USERNAME)
 
 const StyledMenuItem = withStyles({
   root: {
@@ -80,7 +80,7 @@ function CreateJob(props) {
   const [anchorEl, setAnchorEl] = useState(null)
   const classes = useStyles()
   const dispatch = useDispatch()
-  const username = localStorage.getItem(storageUser.USERNAME)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
   const [editorStateDescription, setEditorStateDescription] = useState(() =>
     EditorState.createEmpty()
   )
@@ -191,10 +191,10 @@ function CreateJob(props) {
       })
     )
   }
-  useEffect(() => {
-    dispatch(getAllCity())
-    dispatch(getAllTag())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getAllCity())
+  //   dispatch(getAllTag())
+  // }, [])
   return (
     <Container maxWidth="xl" className={classes.root}>
       <AppBar className={classes.appBar}>

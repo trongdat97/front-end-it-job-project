@@ -101,8 +101,12 @@ function postCv(data) {
   return axiosUpload.post(URL.postCv, data)
 }
 
+function applyCv(data) {
+  return axiosClient.post(URL.applyCv, data)
+}
 export default {
   postCv,
+  applyCv,
   getCvByUsername,
   getJobByUsername,
   login,

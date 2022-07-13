@@ -50,16 +50,16 @@ function AboutGuest(props) {
   const [isShowNewPassword, setIsShowNewPassword] = useState(false)
   const [isShowRepeatPassword, setIsShowRepeatPassword] = useState(false)
   const [isChangePassword, setIsChangePassword] = useState(false)
-  const username = localStorage.getItem(storageUser.USERNAME)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
   const history = useHistory()
   const handleChangePhone = (event) => setPhone(event.target.value)
   const [isChangePhone, setIsChangePhone] = useState(false)
   useEffect(() => {
     if (status === 'getProfile.fulfilled') {
       setEmail(info?.email)
-      setWebsite(info?.profile?.pageURL)
-      setPhone(info?.profile?.phone)
-      setCity(info?.profile?.city)
+      setWebsite(info?.website)
+      setPhone(info?.phone)
+      setCity(info?.city)
     }
   }, [status])
 

@@ -117,7 +117,7 @@ function CreateJob(props) {
 
   const handleChangeType = (event) => setType(event.target.value)
 
-  const username = localStorage.getItem(storageUser.USERNAME)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
 
   const handleChangeDeadline = (date) => {
     setDeadline(date)
@@ -190,10 +190,10 @@ function CreateJob(props) {
       })
     )
   }
-  useEffect(() => {
-    dispatch(getAllCity())
-    dispatch(getAllTag())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getAllCity())
+  //   dispatch(getAllTag())
+  // }, [])
   return (
     <Container maxWidth="xl" className={classes.root}>
       <AppBar className={classes.appBar}>
@@ -289,7 +289,7 @@ function CreateJob(props) {
                       horizontal: 'right',
                     }}
                   >
-                    <Avatar src={info?.profile?.profileUrl} />
+                    <Avatar src={'info?.profile?.profileUrl'} />
                   </Badge>
                 </IconButton>
                 <Menu

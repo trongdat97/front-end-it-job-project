@@ -53,13 +53,13 @@ function About(props) {
   const history = useHistory()
   const handleChangePhone = (event) => setPhone(event.target.value)
   const [isChangePhone, setIsChangePhone] = useState(false)
-  const username = localStorage.getItem(storageUser.USERNAME)
+  const username = sessionStorage.getItem(storageUser.USERNAME)
   useEffect(() => {
     if (status === 'getProfile.fulfilled') {
       setEmail(info?.email)
-      setWebsite(info?.profile?.pageURL)
-      setPhone(info?.profile?.phone)
-      setCity(info?.profile?.city)
+      setWebsite(info?.website)
+      setPhone(info?.phone)
+      setCity(info?.city)
     }
   }, [status])
 
